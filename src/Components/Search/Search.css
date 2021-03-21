@@ -1,0 +1,34 @@
+.place-result{
+    background-color: coral;
+    color: white;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 0.5em;
+}
+.search-result{
+    background-color: lightgray;
+    text-align: center;
+    padding: 20px;
+    border-radius: 0.5em;
+    width: 500px;
+    margin-bottom: 20px;
+}
+.show-vehicle{
+    display: flex;
+    background-color: whitesmoke;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    width: 400px;
+    
+    margin:10px auto 10px auto;
+    border-radius: 0.5em;
+
+}
+.show-vehicle img{
+    height: 100px;
+    width:100px
+}
+

@@ -1,0 +1,13 @@
+.background{
+    background-image: url('../../images/road.jpg');
+    background-size: cover;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.vehicles{
+    margin-top: 30px; 
+}
