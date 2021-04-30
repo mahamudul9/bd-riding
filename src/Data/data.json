@@ -1,6 +1,6 @@
 [
-    {"id":1,"name":"Bike","cost":200,"capacity":1,"img":"https://i.ibb.co/D9JxpkK/Frame.png"},
-    {"id":2,"name":"Car","cost":500,"capacity":4,"img":"https://i.ibb.co/SBVXNPj/Frame-2.png"},
-    {"id":3,"name":"Bus","cost":100,"capacity":10,"img":"https://i.ibb.co/30Jw8FN/Frame-1.png"},
-    {"id":4,"name":"Train","cost":50,"capacity":20,"img":"https://i.ibb.co/R2WzSfD/Group.png"}
+    {"id":1,"name":"Bike","cost":200,"capacity":1,"img":"https://i.ibb.co/vHbbmZ4/motorcycle.png"},
+    {"id":2,"name":"Car","cost":500,"capacity":4,"img":"https://i.ibb.co/3zTNv1C/sports-car.png"},
+    {"id":3,"name":"Bus","cost":100,"capacity":10,"img":"https://i.ibb.co/Nm5cYkD/bus.png"},
+    {"id":4,"name":"Train","cost":50,"capacity":20,"img":"https://i.ibb.co/jrJK6Dc/train.png"}
 ]

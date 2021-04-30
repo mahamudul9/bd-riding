@@ -13,7 +13,7 @@ const Home = () => {
     }, [])
     return (
         <div className='background'>
-            <div className='row vahicles'>
+            <div style={{paddingRight:'50px'}} className='row vahicles'>
                 {vehicles.map(vehicle => <div className='col-md-3 '> <Vehicles vehicle={vehicle}></Vehicles></div>)}
             </div>
         </div>

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useState, useContext } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
-import icon from '../../images/google-brands.svg'
+import icon from '../../images/google.png'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -38,11 +38,12 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!login && users.email && users.password) {
+      console.log("signed up");
       firebase.auth().createUserWithEmailAndPassword(users.email, users.password)
         .then(res => {
           const newUsers = { ...users };
           newUsers.success = true;
-          newUsers.error='';
+          newUsers.error = '';
           setUsers(newUsers);
           setLoggedinUser(newUsers);
           console.log(users.name);
@@ -52,7 +53,7 @@ const Login = () => {
         .catch((error) => {
           const newUsers = { ...users }
           newUsers.error = error.message;
-          newUsers.success=false;
+          newUsers.success = false;
           setUsers(newUsers);
           setLoggedinUser(newUsers);
           console.log(error.message)
@@ -62,14 +63,16 @@ const Login = () => {
 
     //Sign in user with email
     if (login && users.email && users.password) {
+      console.log("logged in");
       firebase.auth().signInWithEmailAndPassword(users.email, users.password)
         .then((res) => {
           const newUsers = { ...users };
           newUsers.success = true;
-          newUsers.error='';
+          newUsers.error = '';
+          setUsers(newUsers);
           setLoggedinUser(newUsers);
           history.replace(from);
-          setUsers(newUsers);
+
           console.log('Sign in User info: ', res.user)
         })
         .catch((error) => {
@@ -102,7 +105,7 @@ const Login = () => {
   const handleBlur = (event) => {
     let checkValid = true;
     if (event.target.name === 'email') {
-      checkValid = (/\S+@\S+\.\S+/).test(event.target.value);
+      checkValid = /\S+@\S+\.\S+/.test(event.target.value);
     }
     if (event.target.name === 'password') {
       checkValid = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(event.target.value);
@@ -119,17 +122,17 @@ const Login = () => {
     var googleProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(googleProvider)
       .then((result) => {
-        const {displayName,photoURL,email}= result.user;
-      const signedInUser={
-        isSigned: true,
-        name:displayName,
-        email:email,
-        photo:photoURL
-      }
-      setUsers(signedInUser);
-      setLoggedinUser(signedInUser);
-      console.log(signedInUser);
-      history.replace(from);
+        const { displayName, photoURL, email } = result.user;
+        const signedInUser = {
+          isSigned: true,
+          name: displayName,
+          email: email,
+          photo: photoURL
+        }
+        setUsers(signedInUser);
+        setLoggedinUser(signedInUser);
+        console.log(signedInUser);
+        history.replace(from);
       })
       .catch((error) => {
         var errorCode = error.code;
@@ -139,37 +142,40 @@ const Login = () => {
         console.log(errorCode, '\n', errorMessage)
       });
   }
-
+  
 
   return (
     <div className='login'>
-      {!login && <form onSubmit={handleSubmit} className='login-form'>
-        <h3>Create an account</h3>
-        <input name="name" type='text' placeholder='Name' onBlur={handleBlur}  required  />
+      {!login && <div className='login-main'>
+         <form onSubmit={handleSubmit} className='login-form'>
+          <h3>Create an account</h3>
+          <input name="name" type='text' placeholder='Name' onBlur={handleBlur} required />
+          <br></br>
+          <input name="email" type='email' placeholder='Email' onBlur={handleBlur} required />
+          <br></br>
+          <input name="password" type='password' placeholder='Password' onBlur={handleBlur} title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required />
+          <br></br>
+          <input name="confirmPassword" type='password' placeholder='Confirm Password' title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required onBlur={handleBlur} />
+          <br></br>
+          <input className='submit' type="submit" value='Create an account' />
+          <p>Already have an account? <span onClick={() => setLogin(true)} style={{ color: 'coral' }}>Login</span></p>
+        </form>
+      </div>}
+      {login && <div className='login-main'>
+         <form onSubmit={handleSubmit} className='login-form'>
+          <h3>Login</h3>
+          <input name="email" type='email' onBlur={handleBlur} placeholder='Email' required />
+          <br></br>
+          <input name="password" type='password' onBlur={handleBlur} placeholder='Password' required />
+          <br></br>
+          <input className='submit' type="submit" value='Login' />
+          <p>Don't have account? <span onClick={() => setLogin(false)} style={{ color: 'coral' }}>Create an accoumt</span></p>
+        </form>
+        </div>}
         <br></br>
-        <input name="email" type='email' placeholder='Email' onBlur={handleBlur}  required  />
-        <br></br>
-        <input name="password" type='password' placeholder='Password' onBlur={handleBlur} title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required   />
-        <br></br>
-        <input name="confirmPassword" type='password' placeholder='Confirm Password' title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required onBlur={handleBlur}    />
-        <br></br>
-        <input className='submit' type="submit" value='Create an account' />
-        <p>Already have an account? <span onClick={() => setLogin(true)} style={{ color: 'coral' }}>Login</span></p>
-      </form>}
-      {login && <form onSubmit={handleSubmit} className='login-form'>
-        <h3>Login</h3>
-        <input name="email" type='email' placeholder='Email'    />
-        <br></br>
-        <input name="password" type='password' placeholder='Password'    />
-        <br></br>
-        <input className='submit' type="submit" value='Login' />
-        <p>Don't have account? <span onClick={() => setLogin(false)} style={{ color: 'coral' }}>Create an accoumt</span></p>
-      </form>}<br></br>
-      <p>---------- Or ------------</p>
-      <button className='btn google'  onClick={handleGoogle}><img style={{height:20}} src={icon} alt=""/>Continue with Google</button>
-
+        <p>---------- Or ------------</p>
+        <button className='btn google' onClick={handleGoogle}><img style={{ height: 20,width:20 }} src={icon} alt="" />  Continue with Google</button>
     </div>
   );
 };
-
 export default Login;

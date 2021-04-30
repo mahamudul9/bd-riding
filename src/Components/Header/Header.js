@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'
 
-const Header = () => {
+const Header = (props) => {
+console.log(props.loggedinUser);
+const{loggedinUser}=props;
+
     return (
         <nav class="navbar navbar-expand-lg">
                 <div class="container">
@@ -12,7 +15,7 @@ const Header = () => {
                             <Link to='/destination'  >Destination</Link>
                             <Link to='/blog' >Blog</Link>
                             <Link to='/content' >Content</Link>
-                           <Link to='/login'><button className='btn btn-danger'>Login</button></Link>
+                           <Link to='/login'><button className='btn btn-danger'>{loggedinUser.isSigned ? loggedinUser.name : 'Login'}</button></Link>
                         </div>
                 </div> 
             </nav>
